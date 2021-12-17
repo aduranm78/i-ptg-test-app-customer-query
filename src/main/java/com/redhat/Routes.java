@@ -23,8 +23,8 @@ public class Routes extends RouteBuilder {
       .port("8080")
       .bindingMode(RestBindingMode.auto);
 
-      String erpUri = "https://5298967-sb1.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=597&deploy=1&deploy=1&bridgeEndpoint=true&throwExceptionOnFailure=false";
-      String NSUri = "https://5298967-sb1.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=597&deploy=1";
+      String erpUri = "https://5298967-sb1.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=909&deploy=1&deploy=1&bridgeEndpoint=true&throwExceptionOnFailure=false";
+      String NSUri = "https://5298967-sb1.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=909&deploy=1";
     
     rest()
       .path("/").consumes("application/json").produces("application/json")
@@ -61,7 +61,7 @@ public class Routes extends RouteBuilder {
       })
       //.setHeader("backend", simple("{{redhat.backend}}"))
       .to("log:DEBUG?showBody=true&showHeaders=true")
-      .toD("https://5298967-sb1.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=597&deploy=1&bridgeEndpoint=true&throwExceptionOnFailure=false")
+      .toD("https://5298967-sb1.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=909&deploy=1&bridgeEndpoint=true&throwExceptionOnFailure=false")
       .streamCaching()
       .log(LoggingLevel.INFO, "${in.headers.CamelFileName}")
       //.toD("https://5298967-sb1.restlets.api.netsuite.com/app/site/hosting/restlet.nl?bridgeEndpoint=true&throwExceptionOnFailure=false")
