@@ -1,12 +1,12 @@
 package com.redhat;
 
 import java.io.IOException;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
 
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
@@ -43,7 +43,7 @@ public class OAuthSign {
 				Logger.getLogger(HttpGet.class.getName()).log(Level.SEVERE, null, ex);
 				return ex.getMessage();
 			}
-		}else{
+		}else if(method=="POST"){ 
 			HttpPost httppost= new HttpPost(uri);
 			try {
 				HttpRequest signedReq = consumer.sign(httppost);
@@ -59,6 +59,22 @@ public class OAuthSign {
 				Logger.getLogger(HttpPost.class.getName()).log(Level.SEVERE, null, ex);
 				return ex.getMessage();
 			}		
+		}else{
+			HttpPut httpput= new HttpPut(uri);
+			try {
+				HttpRequest signedReq = consumer.sign(httpput);
+				String realm = "OAuth realm=\"5298967_SB1\",";
+				return signedReq.getHeader("Authorization").toString().replace("OAuth", realm);
+			} catch (OAuthMessageSignerException ex) {
+				Logger.getLogger(HttpPut.class.getName()).log(Level.SEVERE, null, ex);
+				return ex.getMessage();
+			} catch (OAuthExpectationFailedException ex) {
+				Logger.getLogger(HttpPut.class.getName()).log(Level.SEVERE, null, ex);
+				return ex.getMessage();
+			} catch (OAuthCommunicationException ex) {
+				Logger.getLogger(HttpPut.class.getName()).log(Level.SEVERE, null, ex);
+				return ex.getMessage();
+			}	
 		}
 	    
 	    // HttpParameters httpParams = consumer.getRequestParameters();
